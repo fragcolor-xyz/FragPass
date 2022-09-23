@@ -1,2 +1,2 @@
 # FragPass
-EVM Smart Contract of FragPass NFTs
+EVM Smart Contract for FragPass NFTs
