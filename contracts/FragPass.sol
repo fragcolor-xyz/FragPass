@@ -19,15 +19,11 @@ contract FragPass is ERC721A, Ownable {
 
     function safeMint(bytes32[] memory _proof) public payable {
         require(!alreadyClaimed[msg.sender], "Account has already claimed");
-        require(isValid(_proof, keccak256(abi.encodePacked(msg.sender))), "Account is not a part of the Whitelist");
+        require(MerkleProof.verify(_proof, root, _leaf), "Account is not a part of the Whitelist");
 
         _safeMint(msg.sender, 1);
         alreadyClaimed[msg.sender] = true;
 
         emit AccountClaimed(msg.sender);
-    }
-
-    function isValid(bytes32[] memory _proof, bytes32 leaf) public view returns (bool) {
-        return MerkleProof.verify(_proof, root, _leaf);
     }
 }
